@@ -9,7 +9,7 @@ class HistoryPage extends StatelessWidget {
     final addFood = AddFood();
     return  Scaffold(
       appBar: AppBar(
-        title: Text("History"),
+        title: const Text("History"),
         centerTitle: true,
 
 
@@ -18,13 +18,22 @@ class HistoryPage extends StatelessWidget {
             itemCount: addFood.length,
             itemBuilder: (context, index){
               final food = addFood.food(atIndex: index)!;
-              return ListTile(
-                tileColor: Colors.white,
-                title: Text(food.name),
-                leading: Image(image: AssetImage(food.img),
-                ),
-                subtitle: Text(food.price.toString()),
+              return Material(
+                elevation: 10,
+                child: ListTile(
+                  tileColor: Colors.white,
+                  title: Text(food.name),
+                  leading: Image(image: AssetImage(food.img),
+                  ),
+                  subtitle: Text("\$${food.price}"),
+                  trailing: IconButton(
+                    onPressed: (){
+                      addFood.removeTile(food: food);
+                    },
+                  icon: const Icon(Icons.delete)
+                  ),
 
+                ),
               );
             }
         )

@@ -109,14 +109,14 @@ class _FoodItemTileState extends State<FoodItemTile> {
                 child: TextButton(
                   onPressed: (){
                     final food = Food(
-                        name:_controller.text,
+                        name:widget.itemName,
                         price: int.parse(widget.itemPrice),
                         img: widget.imagePath
                     );
                     AddFood().addTile(food: food);
                     Navigator.of(context).pop();
                   },
-                  child: Text("ADD",
+                  child: const Text("ADD",
                   style: TextStyle(
                       fontFamily: "Montserrat",
                       color: Colors.deepOrange
