@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SignUpPage extends StatelessWidget {
   final Animation<double> transitionAnimation;
@@ -31,7 +32,13 @@ class SignUpPage extends StatelessWidget {
           },
           child: Column(
             children: [
-              const SizedBox(height: 80),
+              const SizedBox(height: 40,),
+              Text('Tuk~In Sign up', style: 
+              GoogleFonts.aboreto(fontSize: 30,
+              color: Colors.deepOrange
+              )
+              ),
+              const SizedBox(height: 40),
               const Center(
                 child: Image(
                   image: AssetImage("assets/profile.png"),

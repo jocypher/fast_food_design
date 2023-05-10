@@ -1,6 +1,5 @@
 import 'package:fast_food_app_design/pages/login_page.dart';
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
 import 'package:google_fonts/google_fonts.dart';
 
 class AnimationPage extends StatefulWidget {
@@ -17,7 +16,7 @@ class _AnimationPageState extends State<AnimationPage> with SingleTickerProvider
   @override
   void initState() {
     controller =
-        AnimationController(vsync: this, duration: Duration(seconds: 5));
+        AnimationController(vsync: this, duration: const Duration(seconds: 5));
     super.initState();
 
     final curveAnimation =
@@ -53,10 +52,10 @@ class _AnimationPageState extends State<AnimationPage> with SingleTickerProvider
       backgroundColor: Colors.white,
       body: Column(
         children: [
-          SizedBox(height: 100,),
+          const SizedBox(height: 100,),
           FadeTransition(
             opacity: animation,
-          child: ProfilePage(),
+          child: const ProfilePage(),
           ),
 
           SizedBox(height: height * 0.03,),
@@ -85,7 +84,7 @@ class _AnimationPageState extends State<AnimationPage> with SingleTickerProvider
           TextButton(
               onPressed: (){
                 Navigator.push(context, PageRouteBuilder(
-                  transitionDuration: Duration(seconds: 1),
+                  transitionDuration: const Duration(seconds: 1),
                     pageBuilder: (context, animation,secondaryAnimation ){
                   return LoginPage(transitionAnimation: animation);
                 }));
@@ -94,11 +93,11 @@ class _AnimationPageState extends State<AnimationPage> with SingleTickerProvider
               decoration: BoxDecoration(
                   color: Colors.deepOrangeAccent,
                   borderRadius: BorderRadius.circular(7),
-                  boxShadow: [BoxShadow(
+                  boxShadow: const [BoxShadow(
                       color: Colors.deepOrangeAccent,
                       spreadRadius: 1,
                       blurRadius: 17,
-                      offset: const Offset(0, 15)
+                      offset: Offset(0, 15)
                   ) ] ),
               child: Text("Get Started",
                   style: GoogleFonts.aboreto(
@@ -117,10 +116,10 @@ class _AnimationPageState extends State<AnimationPage> with SingleTickerProvider
   }
 }
 class RotatingTransition extends StatelessWidget {
-  RotatingTransition({required this.angle, required this.child});
+  const RotatingTransition({super.key, required this.angle, required this.child});
 
-    late final Animation<double> angle;
-    late final Widget child;
+     final Animation<double> angle;
+     final Widget child;
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
@@ -134,14 +133,14 @@ class RotatingTransition extends StatelessWidget {
 
 
 class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key});
+
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Image(
-          image: AssetImage("assets/profile.png"),
-        ),
+    return const Center(
+      child: Image(
+        image: AssetImage("assets/profile.png"),
       ),
     );
   }

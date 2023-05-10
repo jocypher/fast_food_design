@@ -206,6 +206,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 child: const TextField(
                   decoration: InputDecoration(
+                    border: InputBorder.none,
                     hintText: "Search Product...",
                     hintStyle: TextStyle(
                       fontFamily: "Montserrat",
@@ -328,6 +329,7 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(height: 10,),
                   Container( margin: const EdgeInsets.symmetric(horizontal: 5),
                     child: GridView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: _shopItems.length,
                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -335,11 +337,14 @@ class _HomePageState extends State<HomePage> {
                         itemBuilder: (context, index){
                           return
                             Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: Colors.grey)),
                               child: FoodItemTile(
                                   itemName: _shopItems[index][0],
                                   itemPrice: _shopItems[index][1],
                                   imagePath: _shopItems[index][2],
-                                  color: _shopItems[index][3],
+                  
                               ),
                             );
                         })

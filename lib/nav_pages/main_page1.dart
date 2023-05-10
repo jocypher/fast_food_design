@@ -1,4 +1,3 @@
-import 'package:fast_food_app_design/nav_pages/contact_page.dart';
 import 'package:fast_food_app_design/nav_pages/personal_page_account.dart';
 import 'package:fast_food_app_design/nav_pages/history.dart';
 import 'package:fast_food_app_design/nav_pages/search_page.dart';

@@ -1,6 +1,7 @@
 import 'package:fast_food_app_design/nav_pages/main_page1.dart';
 import 'package:fast_food_app_design/pages/signup_page.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 class LoginPage extends StatefulWidget {
    final Animation<double> transitionAnimation;
   const LoginPage({
@@ -16,23 +17,10 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return  Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        leading: GestureDetector(
-          onTap: (){
-            Navigator.of(context).pop();
-          },
-          child: const Icon(Icons.arrow_back,
-          size: 35,),
-        ),
-        iconTheme: const IconThemeData(color: Colors.black),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
       body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
         child: AnimatedBuilder(
           animation: widget.transitionAnimation,
-
+      
           builder: (context, child){
             return SlideTransition(
               position: Tween<Offset>(
@@ -42,13 +30,18 @@ class _LoginPageState extends State<LoginPage> {
                 ),
             ),
               child: child
-
+      
             );
           },
           child: Column(
-
             children: [
-              const SizedBox(height: 80,),
+              const SizedBox(height: 40,),
+              Text('Tuk~In Login', style: 
+              GoogleFonts.aboreto(fontSize: 30,
+              color: Colors.deepOrange
+              )
+              ), 
+              const SizedBox(height: 40,),
               const Center(
                 child: Image(
                   image: AssetImage("assets/profile.png"),
@@ -56,15 +49,16 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 25,),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                padding: const EdgeInsets.symmetric(vertical: 15.0),
                 child: Container(
+                  padding: const EdgeInsets.all(7),
                   margin: const EdgeInsets.only(left: 30, right: 30),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(7),
                     border: Border.all(
                       color: Colors.grey,
                     )
-
+      
                   ),
                   child: const TextField(
                     keyboardType: TextInputType.text,
@@ -72,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
                       border: InputBorder.none,
                         prefixIcon: Icon(Icons.person,
                         color: Colors.deepOrange,),
-                      hintText: "Username",
+                      hintText: "Email",
                         hintStyle: TextStyle(
                             fontSize: 18,
                             color: Colors.black,
@@ -83,21 +77,25 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               Container(
+                padding: const EdgeInsets.all(7),
                 margin: const EdgeInsets.only(left: 30, right: 30),
                 decoration: BoxDecoration(
+                  
                   borderRadius: BorderRadius.circular(7),
                     border: Border.all(
                         color: Colors.grey
                     )
                 ),
                 child: const TextField(
-                  keyboardType: TextInputType.emailAddress,
+                  obscureText: true,
+                  keyboardType: TextInputType.visiblePassword,
                   textInputAction: TextInputAction.next,
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    prefixIcon: Icon(Icons.email_outlined,
+                    prefixIcon: Icon(Icons.password,
+                    
                     color: Colors.deepOrange,),
-                      hintText: "Email",
+                      hintText: "Password",
                     hintStyle: TextStyle(
                       fontSize: 18,
                       color: Colors.black,
@@ -114,7 +112,7 @@ class _LoginPageState extends State<LoginPage> {
                 },
                 child: Container(
                   margin: const EdgeInsets.only(left: 30, right: 30, top: 30),
-                  padding: const EdgeInsets.all(17),
+                  padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     color: Colors.deepOrange,
                       borderRadius: BorderRadius.circular(10),
@@ -134,12 +132,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const SizedBox(height: 15,),
-             const Padding(
-               padding: EdgeInsets.symmetric(horizontal: 15.0),
-               child: Divider(
-                 thickness: 2,
-               ),
-             ),
+              const Text('Click the arrow below to navigate to sign up')
             ],
           ),
         ),
@@ -148,7 +141,7 @@ class _LoginPageState extends State<LoginPage> {
         onPressed: (){
           Navigator.push(context,
               PageRouteBuilder(
-                transitionDuration: const Duration(seconds: 2),
+                transitionDuration: const Duration(seconds: 1),
                   pageBuilder: (context, animation, secondaryAnimation){
             return SignUpPage(
               transitionAnimation: animation,

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_unnecessary_containers
+
 import 'package:flutter/material.dart';
 
 class ContactPage extends StatelessWidget {
@@ -6,14 +8,13 @@ class ContactPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    double width= MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.deepOrangeAccent,
-        iconTheme: IconThemeData(color: Colors.white),
-        title: Text("Contact Us",
+        iconTheme: const IconThemeData(color: Colors.white),
+        title: const Text("Contact Us",
         style: TextStyle(
           fontFamily: "Montserrat",
           fontSize: 25
@@ -26,18 +27,18 @@ class ContactPage extends StatelessWidget {
             child: Center(
               child: Image(
                 height: height * 0.30,
-                image: AssetImage("assets/contact1.jpg"),
+                image: const AssetImage("assets/contact1.jpg"),
               ),
             ),
           ),
           Container(
-            margin: EdgeInsets.only(left: 10, right: 10, top: 20),
+            margin: const EdgeInsets.only(left: 10, right: 10, top: 20),
             decoration: BoxDecoration(
               border: Border.all(
                 color: Colors.grey
               )
             ),
-            child: TextField(
+            child: const TextField(
               decoration: InputDecoration(
                 hintText: "Name",
                 prefixIcon: Icon(Icons.person)
@@ -46,13 +47,13 @@ class ContactPage extends StatelessWidget {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(left: 10, right: 10, top: 20),
+            margin: const EdgeInsets.only(left: 10, right: 10, top: 20),
             decoration: BoxDecoration(
                 border: Border.all(
                     color: Colors.grey
                 )
             ),
-            child: TextField(
+            child: const TextField(
               decoration: InputDecoration(
                   hintText: "Email",
                   prefixIcon: Icon(Icons.email_outlined)
@@ -61,11 +62,11 @@ class ContactPage extends StatelessWidget {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(left: 10, right: 10, top: 20),
-            decoration: BoxDecoration(
+            margin: const EdgeInsets.only(left: 10, right: 10, top: 20),
+            decoration: const BoxDecoration(
             ),
             child: TextFormField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "Comment Section",
                 prefixIcon: Icon(Icons.comment),
                 hintStyle: TextStyle(
@@ -80,7 +81,7 @@ class ContactPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                child: Text("You can contact us via ",
+                child: const Text("You can contact us via ",
                   style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
@@ -89,9 +90,9 @@ class ContactPage extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 3,),
+              const SizedBox(height: 3,),
               Container(
-                child: Text("Email: arthurwilchield@gmail.com,",
+                child: const Text("Email: arthurwilchield@gmail.com,",
 
                   style: TextStyle(
                       fontSize: 20,
@@ -101,9 +102,9 @@ class ContactPage extends StatelessWidget {
                       fontFamily: "Montserrat"
                   ),),
               ),
-              SizedBox(height: 5,),
+              const SizedBox(height: 5,),
               Container(
-                child: Text("Mobile: 0552893284",
+                child: const Text("Mobile: 0552893284",
 
                   style: TextStyle(
                       fontSize: 18,
@@ -114,7 +115,7 @@ class ContactPage extends StatelessWidget {
                   ),),
               ),
               Container(
-                child: Text("WhatsApp: 0595069933",
+                child: const Text("WhatsApp: 0595069933",
                   style: TextStyle(
                       fontSize: 18,
                       fontStyle: FontStyle.italic,

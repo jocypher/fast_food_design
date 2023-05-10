@@ -1,4 +1,5 @@
 import 'package:fast_food_app_design/component/food_item_tile.dart';
+import 'package:fast_food_app_design/nav_pages/history.dart';
 import 'package:fast_food_app_design/nav_pages/main_page1.dart';
 import 'package:flutter/material.dart';
 
@@ -13,13 +14,13 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
 
   final List _foodItems = [
-    ["Burger", "30", "assets/burger.jpg", Colors.white],
-    ["Pizza", "44","assets/pizza.jpg", Colors.white],
-    ["Fruits", "44","assets/fruits.jpg", Colors.white],
-    ["Fruits", "10","assets/avocado.png", Colors.greenAccent],
-    ["Fruits", "10","assets/chicken.png", Colors.brown.shade400],
-    ["Fruits", "10","assets/water.png", Colors.blueAccent],
-    ["Fruits", "10","assets/banana.png", Colors.yellowAccent]
+    ["Burger", "30", "assets/burger.jpg",],
+    ["Pizza", "44","assets/pizza.jpg",],
+    ["Fruits", "44","assets/fruits.jpg",],
+    ["Fruits", "10","assets/avocado.png",],
+    ["Fruits", "10","assets/chicken.png", ],
+    ["Fruits", "10","assets/water.png", ],
+    ["Fruits", "10","assets/banana.png",]
   ];
 
   @override
@@ -50,10 +51,11 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                   ),
                   Row(
-                      children: const [
-                        Icon(Icons.shopping_cart_outlined),
-                        SizedBox(width: 3),
-                        Icon(Icons.filter_alt_sharp)
+                      children:  [
+                        IconButton(
+                          onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HistoryPage())),
+                          icon: const Icon(Icons.shopping_cart_outlined)),
+                        const SizedBox(width: 3,)
                       ],
                   )
 
@@ -72,6 +74,7 @@ class _SearchPageState extends State<SearchPage> {
                 ),
                 child: const TextField(
                   decoration: InputDecoration(
+                    border: InputBorder.none,
                       hintText: "What are you looking for?",
                       hintStyle: TextStyle(
                           fontFamily: "Montserrat",
@@ -82,23 +85,30 @@ class _SearchPageState extends State<SearchPage> {
                 ),
               ),
               const SizedBox(height: 10),
-              GridView.builder(
-                scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemCount: _foodItems.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2, mainAxisSpacing: 10, crossAxisSpacing: 10),
-                  itemBuilder: (context, index){
-                    return
-                      Container(
-                        child: FoodItemTile(
-                            itemName: _foodItems[index][0],
-                            itemPrice: _foodItems[index][1],
-                            imagePath: _foodItems[index][2],
-                          color: _foodItems[index][3],
-                        ),
-                      );
-                  })
+              Container(
+                 margin: const EdgeInsets.symmetric(horizontal: 5),
+                child: GridView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: _foodItems.length,
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2, mainAxisSpacing: 10, crossAxisSpacing: 8),
+                    itemBuilder: (context, index){
+                      return
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color: Colors.grey)
+                          ),
+                          child: FoodItemTile(
+                              itemName: _foodItems[index][0],
+                              itemPrice: _foodItems[index][1],
+                              imagePath: _foodItems[index][2],
+                          ),
+                        );
+                    }),
+              )
 
             ],
           ),
