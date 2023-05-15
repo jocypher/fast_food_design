@@ -1,11 +1,12 @@
+import 'package:fast_food_app_design/resources/auth_methods.dart';
 import 'package:fast_food_app_design/widget/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SignUpPage extends StatefulWidget {
-
-  const SignUpPage({Key? key,})
-      : super(key: key);
+  const SignUpPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();
@@ -33,17 +34,27 @@ class _SignUpPageState extends State<SignUpPage> {
         child: Column(
           children: [
             const SizedBox(
-              height: 40,
+              height: 70,
             ),
             Text('Tuk~In Sign up',
                 style: GoogleFonts.aboreto(
                     fontSize: 30, color: Colors.deepOrange)),
             const SizedBox(height: 40),
-            const Center(
-              child: Image(
-                image: AssetImage("assets/profile.png"),
-              ),
-            ),
+            Center(
+                child: Stack(
+              children: [
+                const CircleAvatar(
+                  radius: 64,
+                  backgroundImage: NetworkImage(
+                      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60"),
+                ),
+                Positioned(
+                    bottom: -13,
+                    left: 85,
+                    child: IconButton(
+                        onPressed: () {}, icon: Icon(Icons.add_a_photo)))
+              ],
+            )),
             const SizedBox(height: 20),
             Container(
               margin: const EdgeInsets.only(left: 30, right: 30),
@@ -53,19 +64,21 @@ class _SignUpPageState extends State<SignUpPage> {
                     color: Colors.grey,
                   )),
               child: TextFieldInput(
-                textEditingController: _usernameController, 
-                textInputType: TextInputType.text, 
-                hintText: "username", 
+                textEditingController: _usernameController,
+                textInputType: TextInputType.text,
+                hintText: "username",
                 hintStyle: const TextStyle(
-                  fontSize: 18 ,
-                  color: Colors.black,
-                  fontFamily: "Montserrat"
+                    fontSize: 18,
+                    color: Colors.black,
+                    fontFamily: "Montserrat"),
+                prefixIcon: const Icon(
+                  Icons.person,
+                  color: Colors.deepOrange,
                 ),
-                prefixIcon: const Icon(Icons.person, color: Colors.deepOrange,),
-                ),
+              ),
             ),
             const SizedBox(
-              height: 20,
+              height: 14,
             ),
             Container(
               margin: const EdgeInsets.only(left: 30, right: 30),
@@ -73,70 +86,92 @@ class _SignUpPageState extends State<SignUpPage> {
                   borderRadius: BorderRadius.circular(7),
                   border: Border.all(color: Colors.grey)),
               child: TextFieldInput(
-                textEditingController: _usernameController, 
-                textInputType: TextInputType.text, 
-                hintText: "email", 
+                textEditingController: _emailController,
+                textInputType: TextInputType.emailAddress,
+                hintText: "email",
                 hintStyle: const TextStyle(
-                  fontSize: 18 ,
-                  color: Colors.black,
-                  fontFamily: "Montserrat"
+                    fontSize: 18,
+                    color: Colors.black,
+                    fontFamily: "Montserrat"),
+                prefixIcon: const Icon(
+                  Icons.email_outlined,
+                  color: Colors.deepOrange,
                 ),
-                prefixIcon: const Icon(Icons.email_outlined, color: Colors.deepOrange,),
-                ),
+              ),
             ),
             const SizedBox(
-              height: 20,
+              height: 14,
             ),
             Container(
               margin: const EdgeInsets.only(left: 30, right: 30),
-              padding: const EdgeInsets.only(top: 10, bottom: 10),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(7),
                   border: Border.all(color: Colors.grey)),
               child: TextFieldInput(
-                textEditingController: _passwordController, 
-                textInputType: TextInputType.text, 
-                hintText: "password", 
+                textEditingController: _passwordController,
+                textInputType: TextInputType.text,
+                isPassword: true,
+                hintText: "password",
                 hintStyle: const TextStyle(
-                  fontSize: 18 ,
-                  color: Colors.black,
-                  fontFamily: "Montserrat"
+                    fontSize: 18,
+                    color: Colors.black,
+                    fontFamily: "Montserrat"),
+                prefixIcon: const Icon(
+                  Icons.password,
+                  color: Colors.deepOrange,
                 ),
-                prefixIcon: const Icon(Icons.password, color: Colors.deepOrange,),
-                ),
+              ),
             ),
             const SizedBox(
-              height: 30,
+              height: 16,
             ),
-            Container(
-                margin: const EdgeInsets.only(left: 30, right: 30, top: 30),
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                    color: Colors.deepOrange,
-                    borderRadius: BorderRadius.circular(7),
-                    border: Border.all(color: Colors.white)),
-                child: const Center(
-                    child: Text(
-                  "Sign Up",
-                  style: TextStyle(
-                      fontFamily: "Montserrat",
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                ))),
-                const SizedBox(height: 16,),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                   children: const [
-                     Text('Have an account already? '),
-                     Text('Sign In', 
-                     style: TextStyle(fontWeight: FontWeight.bold),
-                     )
-                   ],)
+            InkWell(
+              onTap: () async {
+                String res = await AuthMethods().SignUpUser(
+                  email: _emailController.text,
+                  password: _passwordController.text,
+                  username: _usernameController.text,
+                );
+                print(res);
+              },
+              child: Container(
+                  margin: const EdgeInsets.only(left: 30, right: 30, top: 30),
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                      color: Colors.deepOrange,
+                      borderRadius: BorderRadius.circular(7),
+                      border: Border.all(color: Colors.white)),
+                  child: const Center(
+                      child: Text(
+                    "Sign Up",
+                    style: TextStyle(
+                        fontFamily: "Montserrat",
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ))),
+            ),
+            const SizedBox(
+              height: 14,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('Have an account already? '),
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text(
+                    'Sign In',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                )
+              ],
+            )
           ],
         ),
       ),
-      
     );
   }
 }

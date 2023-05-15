@@ -85,7 +85,7 @@ class _AnimationPageState extends State<AnimationPage> with SingleTickerProvider
               onPressed: (){
                 Navigator.push(context, MaterialPageRoute(
                     builder: (context){
-                  return LoginPage();
+                  return const LoginPage();
                 }));
               }, child: Container(
               padding: const EdgeInsets.all(30),

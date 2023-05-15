@@ -1,8 +1,5 @@
-import 'dart:html';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:fast_food_app_design/models/user.dart' as model;
 import 'package:flutter/foundation.dart';
 
@@ -19,28 +16,34 @@ class AuthMethods {
   }
 
 // function to sign up the user
+  // ignore: non_constant_identifier_names
   Future<String> SignUpUser(
       {required String email,
-      required String Password,
+      required String password,
       required String username,
-      required Uint8List file}) async {
-        // initialises the error in to string variable res
+      // required Uint8List file
+      }) async {
+    // initialises the error in to string variable res
     String res = 'error occured';
     // try and catch block very and authenticate the user
     try {
-      if (email.isNotEmpty || Password.isNotEmpty || username.isNotEmpty) {
+      if (email.isNotEmpty || password.isNotEmpty || username.isNotEmpty) {
         UserCredential credential = await _auth.createUserWithEmailAndPassword(
-            email: email, password: Password);
+            email: email, password: password);
+        // ignore: avoid_print
         print(credential.user!.uid);
 
-        //storage date to keep the photos
-        // String photoUrl = await StorageMethods().
-
-        // model.User user = model.User(
-        //   email: email, photoUrl: photoUrl, uid: credential.user!.uid, username: username);
+        //  add user to database
+        await _firestore.collection("users").doc(credential.user!.uid).set({
+          "username": username,
+          "uid": credential.user!.uid,
+          "email": email
+        });
+        res = 'success';
       }
     } catch (err) {
       res = err.toString();
+      // ignore: avoid_print
       print(res);
     }
     return res;

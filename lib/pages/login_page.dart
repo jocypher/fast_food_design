@@ -1,4 +1,3 @@
-import 'package:fast_food_app_design/nav_pages/main_page1.dart';
 import 'package:fast_food_app_design/pages/signup_page.dart';
 import 'package:fast_food_app_design/widget/textfield.dart';
 import 'package:flutter/material.dart';
@@ -14,13 +13,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   @override
   void dispose() {
     super.dispose();
-    _usernameController.dispose();
+    _emailController.dispose();
     _passwordController.dispose();
   }
 
@@ -55,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                   borderRadius: BorderRadius.circular(7),
                   border: Border.all(color: Colors.grey)),
               child: TextFieldInput(
-                textEditingController: _usernameController,
+                textEditingController: _emailController,
                 textInputType: TextInputType.text,
                 hintText: "email",
                 hintStyle: const TextStyle(
