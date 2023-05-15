@@ -83,10 +83,9 @@ class _AnimationPageState extends State<AnimationPage> with SingleTickerProvider
           SizedBox(height: height * 0.15),
           TextButton(
               onPressed: (){
-                Navigator.push(context, PageRouteBuilder(
-                  transitionDuration: const Duration(seconds: 1),
-                    pageBuilder: (context, animation,secondaryAnimation ){
-                  return LoginPage(transitionAnimation: animation);
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context){
+                  return LoginPage();
                 }));
               }, child: Container(
               padding: const EdgeInsets.all(30),

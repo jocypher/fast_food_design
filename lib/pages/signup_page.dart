@@ -1,12 +1,28 @@
+import 'package:fast_food_app_design/widget/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SignUpPage extends StatelessWidget {
-  final Animation<double> transitionAnimation;
-  const SignUpPage({
-    Key? key,
-    required this.transitionAnimation
-  }) : super(key: key);
+class SignUpPage extends StatefulWidget {
+
+  const SignUpPage({Key? key,})
+      : super(key: key);
+
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _emailController.dispose();
+    _usernameController.dispose();
+    _passwordController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,142 +30,113 @@ class SignUpPage extends StatelessWidget {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
-        child: AnimatedBuilder(
-          animation: transitionAnimation,
-          builder: (context, child){
-            return SlideTransition(
-              position: Tween<Offset>(
-                    begin: const Offset(0,1),
-                  end: const Offset(0,0)
-                ).animate(
-                    CurvedAnimation(
-                    parent: transitionAnimation,
-                    curve: const Interval(0,0.5,curve: Curves.easeInCubic )
-                    )
-                ),
-              child: child
-            );
-          },
-          child: Column(
-            children: [
-              const SizedBox(height: 40,),
-              Text('Tuk~In Sign up', style: 
-              GoogleFonts.aboreto(fontSize: 30,
-              color: Colors.deepOrange
-              )
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 40,
+            ),
+            Text('Tuk~In Sign up',
+                style: GoogleFonts.aboreto(
+                    fontSize: 30, color: Colors.deepOrange)),
+            const SizedBox(height: 40),
+            const Center(
+              child: Image(
+                image: AssetImage("assets/profile.png"),
               ),
-              const SizedBox(height: 40),
-              const Center(
-                child: Image(
-                  image: AssetImage("assets/profile.png"),
+            ),
+            const SizedBox(height: 20),
+            Container(
+              margin: const EdgeInsets.only(left: 30, right: 30),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(7),
+                  border: Border.all(
+                    color: Colors.grey,
+                  )),
+              child: TextFieldInput(
+                textEditingController: _usernameController, 
+                textInputType: TextInputType.text, 
+                hintText: "username", 
+                hintStyle: const TextStyle(
+                  fontSize: 18 ,
+                  color: Colors.black,
+                  fontFamily: "Montserrat"
                 ),
-              ),
-              const SizedBox(height: 20),
-              Container(
-                margin: const EdgeInsets.only(left: 30, right: 30),
+                prefixIcon: const Icon(Icons.person, color: Colors.deepOrange,),
+                ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Container(
+              margin: const EdgeInsets.only(left: 30, right: 30),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(7),
+                  border: Border.all(color: Colors.grey)),
+              child: TextFieldInput(
+                textEditingController: _usernameController, 
+                textInputType: TextInputType.text, 
+                hintText: "email", 
+                hintStyle: const TextStyle(
+                  fontSize: 18 ,
+                  color: Colors.black,
+                  fontFamily: "Montserrat"
+                ),
+                prefixIcon: const Icon(Icons.email_outlined, color: Colors.deepOrange,),
+                ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Container(
+              margin: const EdgeInsets.only(left: 30, right: 30),
+              padding: const EdgeInsets.only(top: 10, bottom: 10),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(7),
+                  border: Border.all(color: Colors.grey)),
+              child: TextFieldInput(
+                textEditingController: _passwordController, 
+                textInputType: TextInputType.text, 
+                hintText: "password", 
+                hintStyle: const TextStyle(
+                  fontSize: 18 ,
+                  color: Colors.black,
+                  fontFamily: "Montserrat"
+                ),
+                prefixIcon: const Icon(Icons.password, color: Colors.deepOrange,),
+                ),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            Container(
+                margin: const EdgeInsets.only(left: 30, right: 30, top: 30),
+                padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
+                    color: Colors.deepOrange,
                     borderRadius: BorderRadius.circular(7),
-                    border: Border.all(
-                      color: Colors.grey,
-                    )
-
-                ),
-                child: const TextField(
-                  keyboardType: TextInputType.emailAddress,
-                  textInputAction: TextInputAction.next,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                      prefixIcon: Icon(Icons.email_outlined,
-                        color: Colors.deepOrange,),
-                      hintText: "Email",
-                      hintStyle: TextStyle(
-                          fontSize: 18,
-                          color: Colors.black,
-                          fontFamily: "Montserrat"
-                      )
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20,),
-              Container(
-                margin: const EdgeInsets.only(left: 30, right: 30),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(7),
-                    border: Border.all(
-                        color: Colors.grey
-                    )
-                ),
-                child: const TextField(
-                  textInputAction: TextInputAction.next,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      prefixIcon: Icon(Icons.password,
-                        color: Colors.deepOrange,),
-                      hintText: "Password",
-                      hintStyle: TextStyle(
-                          fontSize: 18,
-                          color: Colors.black,
-                          fontFamily: "Montserrat"
-                      )
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20,),
-              Container(
-                margin: const EdgeInsets.only(left: 30, right: 30),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(7),
-                    border: Border.all(
-                        color: Colors.grey
-                    )
-                ),
-                child: const TextField(
-                  textInputAction: TextInputAction.done,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      prefixIcon: Icon(Icons.password,
-                        color: Colors.deepOrange,),
-                      hintText: "Re-enter Password",
-                      hintStyle: TextStyle(
-                          fontSize: 18,
-                          color: Colors.black,
-                          fontFamily: "Montserrat"
-                      )
-                  ),
-                ),
-              ),
-              const SizedBox(height: 30,),
-              Container(
-                  margin: const EdgeInsets.only(left: 30, right: 30, top: 30),
-                  padding: const EdgeInsets.all(17),
-                  decoration: BoxDecoration(
-                      color: Colors.deepOrange,
-                      borderRadius: BorderRadius.circular(7),
-                      border: Border.all(
-                          color: Colors.white
-                      )
-                  ),
-                  child: const Center(
-                      child: Text("Sign Up",
-                        style: TextStyle(
-                            fontFamily: "Montserrat",
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white
-                        ),)
-                  )
-              ),
-            ],
-          ),
+                    border: Border.all(color: Colors.white)),
+                child: const Center(
+                    child: Text(
+                  "Sign Up",
+                  style: TextStyle(
+                      fontFamily: "Montserrat",
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ))),
+                const SizedBox(height: 16,),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                   children: const [
+                     Text('Have an account already? '),
+                     Text('Sign In', 
+                     style: TextStyle(fontWeight: FontWeight.bold),
+                     )
+                   ],)
+          ],
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-          onPressed: (){
-            Navigator.of(context).pop();
-          }, label: const Text("Navigate back")
-      ),
+      
     );
   }
 }

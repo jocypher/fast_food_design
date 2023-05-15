@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "867396514102",
+    "project_id": "food-app-design-7e0c3",
+    "storage_bucket": "food-app-design-7e0c3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:867396514102:android:85725dae7fb8710ea58397",
+        "android_client_info": {
+          "package_name": "com.example.fast_food_app_design"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "867396514102-mqb3uh1jntc536f80kckorpbl5bu4rug.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqpcO-gm2QqM2CYZNwVJa50Ar08JCAD-g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "867396514102-mqb3uh1jntc536f80kckorpbl5bu4rug.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "867396514102-uqjrmdlh5mm2apjde5ur078crs27blh5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.fastFoodAppDesign"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
