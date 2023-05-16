@@ -1,7 +1,11 @@
+import 'dart:typed_data';
+
 import 'package:fast_food_app_design/resources/auth_methods.dart';
+import 'package:fast_food_app_design/utils/utils.dart';
 import 'package:fast_food_app_design/widget/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({
@@ -16,6 +20,8 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  Uint8List? _image;
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -23,6 +29,30 @@ class _SignUpPageState extends State<SignUpPage> {
     _emailController.dispose();
     _usernameController.dispose();
     _passwordController.dispose();
+  }
+
+  void selectImage() async {
+    Uint8List im = await pickImage(ImageSource.gallery);
+    setState(() {
+      _image = im;
+    });
+  }
+
+  void signUpUser() async {
+    setState(() {
+      _isLoading = true;
+    });
+    String res = await AuthMethods().SignUpUser(
+        email: _emailController.text,
+        password: _passwordController.text,
+        username: _usernameController.text,
+        file: _image!);
+    if (res == 'success') {
+      showSnackBar(res, context);
+    }
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override
@@ -43,16 +73,20 @@ class _SignUpPageState extends State<SignUpPage> {
             Center(
                 child: Stack(
               children: [
-                const CircleAvatar(
-                  radius: 64,
-                  backgroundImage: NetworkImage(
-                      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60"),
-                ),
+                _image != null
+                    ? CircleAvatar(
+                        radius: 64, backgroundImage: MemoryImage(_image!))
+                    : const CircleAvatar(
+                        radius: 64,
+                        backgroundImage: NetworkImage(
+                            "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60"),
+                      ),
                 Positioned(
                     bottom: -13,
                     left: 85,
                     child: IconButton(
-                        onPressed: () {}, icon: Icon(Icons.add_a_photo)))
+                        onPressed: selectImage,
+                        icon: const Icon(Icons.add_a_photo)))
               ],
             )),
             const SizedBox(height: 20),
@@ -126,14 +160,7 @@ class _SignUpPageState extends State<SignUpPage> {
               height: 16,
             ),
             InkWell(
-              onTap: () async {
-                String res = await AuthMethods().SignUpUser(
-                  email: _emailController.text,
-                  password: _passwordController.text,
-                  username: _usernameController.text,
-                );
-                print(res);
-              },
+              onTap: signUpUser,
               child: Container(
                   margin: const EdgeInsets.only(left: 30, right: 30, top: 30),
                   padding: const EdgeInsets.all(20),
@@ -141,8 +168,12 @@ class _SignUpPageState extends State<SignUpPage> {
                       color: Colors.deepOrange,
                       borderRadius: BorderRadius.circular(7),
                       border: Border.all(color: Colors.white)),
-                  child: const Center(
-                      child: Text(
+                  child:  Center(
+                      child: _isLoading? const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.white),)
+                  
+              :const Text(
                     "Sign Up",
                     style: TextStyle(
                         fontFamily: "Montserrat",

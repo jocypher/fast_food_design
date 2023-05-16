@@ -1,4 +1,7 @@
+import 'package:fast_food_app_design/nav_pages/main_page1.dart';
 import 'package:fast_food_app_design/pages/signup_page.dart';
+import 'package:fast_food_app_design/resources/auth_methods.dart';
+import 'package:fast_food_app_design/utils/utils.dart';
 import 'package:fast_food_app_design/widget/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,12 +18,30 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool isLoading = false;
 
   @override
   void dispose() {
     super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+  }
+
+  void loginUser() async {
+    setState(() {
+      isLoading = true;
+    });
+    String res = await AuthMethods().SignInUser(
+        email: _emailController.text, password: _passwordController.text);
+    if (res == 'success') {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => MainPage()));
+    } else {
+      showSnackBar(res, context);
+    }
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -79,6 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                 textEditingController: _passwordController,
                 textInputType: TextInputType.text,
                 hintText: "password",
+                isPassword: true,
                 hintStyle: const TextStyle(
                     fontSize: 18,
                     color: Colors.black,
@@ -92,22 +114,25 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(
               height: 12,
             ),
-            Container(
-                margin: const EdgeInsets.only(left: 30, right: 30, top: 30),
-                padding: const EdgeInsets.all(18),
-                decoration: BoxDecoration(
-                    color: Colors.deepOrange,
-                    borderRadius: BorderRadius.circular(7),
-                    border: Border.all(color: Colors.white)),
-                child: const Center(
-                    child: Text(
-                  "Log In",
-                  style: TextStyle(
-                      fontFamily: "Montserrat",
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                ))),
+            InkWell(
+              onTap: loginUser,
+              child: Container(
+                  margin: const EdgeInsets.only(left: 30, right: 30, top: 30),
+                  padding: const EdgeInsets.all(18),
+                  decoration: BoxDecoration(
+                      color: Colors.deepOrange,
+                      borderRadius: BorderRadius.circular(7),
+                      border: Border.all(color: Colors.white)),
+                  child:  Center(
+                      child: isLoading ? const Center(child: CircularProgressIndicator(color: Colors.white,)):const  Text(
+                    "Log In",
+                    style: TextStyle(
+                        fontFamily: "Montserrat",
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ))),
+            ),
             const SizedBox(
               height: 16,
             ),
