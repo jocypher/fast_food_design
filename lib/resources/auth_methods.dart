@@ -8,13 +8,8 @@ import 'package:flutter/foundation.dart';
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  Future<model.User> getUserDetails() async {
-    User currentuser = _auth.currentUser!;
-    DocumentSnapshot snapshot =
-        await _firestore.collection("users").doc(currentuser.uid).get();
 
-    return model.User.fromSnap(snapshot);
-  }
+
 
 // function to sign up the user
   // ignore: non_constant_identifier_names
@@ -41,12 +36,15 @@ class AuthMethods {
             .uploadImageStorage("profilePics", file, false);
 
         //  add user to database
-        await _firestore.collection("users").doc(credential.user!.uid).set({
-          "username": username,
-          "uid": credential.user!.uid,
-          "email": email,
-          "photoUrl": photoUrl
-        });
+        model.User user = model.User(
+            email: email,
+            photoUrl: photoUrl,
+            uid: credential.user!.uid,
+            username: username);
+        await _firestore
+            .collection("users")
+            .doc(credential.user!.uid)
+            .set(user.toJson());
         res = 'success';
       }
     } catch (err) {

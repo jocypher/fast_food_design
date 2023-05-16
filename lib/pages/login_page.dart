@@ -22,9 +22,9 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void dispose() {
-    super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    super.dispose();
   }
 
   void loginUser() async {
@@ -32,10 +32,11 @@ class _LoginPageState extends State<LoginPage> {
       isLoading = true;
     });
     String res = await AuthMethods().SignInUser(
-        email: _emailController.text, password: _passwordController.text);
+        email: _emailController.text, 
+        password: _passwordController.text);
     if (res == 'success') {
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => MainPage()));
+          .push(MaterialPageRoute(builder: (context) => const MainPage()));
     } else {
       showSnackBar(res, context);
     }
@@ -76,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
                   border: Border.all(color: Colors.grey)),
               child: TextFieldInput(
                 textEditingController: _emailController,
-                textInputType: TextInputType.text,
+                textInputType: TextInputType.emailAddress,
                 hintText: "email",
                 hintStyle: const TextStyle(
                     fontSize: 18,

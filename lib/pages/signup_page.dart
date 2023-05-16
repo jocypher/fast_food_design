@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../nav_pages/main_page1.dart';
+
 class SignUpPage extends StatefulWidget {
   const SignUpPage({
     Key? key,
@@ -25,10 +27,10 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   void dispose() {
-    super.dispose();
     _emailController.dispose();
     _usernameController.dispose();
     _passwordController.dispose();
+       super.dispose();
   }
 
   void selectImage() async {
@@ -48,6 +50,8 @@ class _SignUpPageState extends State<SignUpPage> {
         username: _usernameController.text,
         file: _image!);
     if (res == 'success') {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => const MainPage()));
       showSnackBar(res, context);
     }
     setState(() {

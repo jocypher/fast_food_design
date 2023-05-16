@@ -1,15 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fast_food_app_design/component/food_item_tile.dart';
 import 'package:fast_food_app_design/nav_pages/contact_page.dart';
 import 'package:fast_food_app_design/nav_pages/search_page.dart';
-import 'package:fast_food_app_design/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 
 
 class HomePage extends StatefulWidget {
-  final String uid;
-  const HomePage({Key? key, required this.uid}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -29,27 +26,6 @@ class _HomePageState extends State<HomePage> {
     ["Fruits", "10","assets/water.png", Colors.blue],
     ["Fruits", "10","assets/banana.png", Colors.yellow]
   ];
-
-  var userData = {};
-
-  @override
-  void initState() {
-    super.initState();
-    getData();
-  }
-
-  getData() async {
-    try {
-      var userSnap = await FirebaseFirestore.instance
-          .collection("users")
-          .doc(widget.uid)
-          .get();
-
-      userData = userSnap.data()!;
-    } catch (err) {
-      showSnackBar(err.toString(), context);
-    }
-  }
 
 
 
@@ -85,20 +61,20 @@ class _HomePageState extends State<HomePage> {
                           child: ClipOval(
                             child: SizedBox.fromSize(
                               size: const Size.fromRadius(30), // Image radius
-                              child: Image.asset(userData["photoUrl"], fit: BoxFit.cover,
+                              child: Image.asset('assets/profile.jpg', fit: BoxFit.cover,
                               ),
                             ),
                           ),
                         ),
                       ),
-                       Text(userData['username'],
+                      const Text("Jonathan .W. Arthur",
                         style: TextStyle(
                             fontSize: 25,
                             color: Colors.white,
                             fontWeight: FontWeight.w600,
                             fontFamily: "Montserrat"
                         ),),
-                       Text(userData['email'],
+                      const Text("arthurwilchield@gmail.com",
                           style: TextStyle(
                               fontSize: 20,
                               color: Colors.white,

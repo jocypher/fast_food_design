@@ -4,6 +4,8 @@ import 'package:fast_food_app_design/nav_pages/search_page.dart';
 import 'package:fast_food_app_design/pages/homepage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -15,7 +17,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
 
   List pages = [
-   HomePage(uid: FirebaseAuth.instance.currentUser!.uid,),
+   HomePage(),
     const SearchPage(),
     const HistoryPage(),
      MyPage(uid:FirebaseAuth.instance.currentUser!.uid),
@@ -28,6 +30,8 @@ class _MainPageState extends State<MainPage> {
       currentIndex = index;
     });
   }
+
+ 
   @override
   Widget build(BuildContext context) {
 

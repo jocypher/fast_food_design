@@ -2,9 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fast_food_app_design/nav_pages/contact_page.dart';
 import 'package:fast_food_app_design/nav_pages/main_page1.dart';
 import 'package:fast_food_app_design/pages/login_page.dart';
+
 import 'package:fast_food_app_design/resources/auth_methods.dart';
 import 'package:fast_food_app_design/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../models/user.dart';
 
 class MyPage extends StatefulWidget {
   final String uid;
@@ -15,27 +19,6 @@ class MyPage extends StatefulWidget {
 }
 
 class _MyPageState extends State<MyPage> {
-  var userData = {};
-
-  @override
-  void initState() {
-    super.initState();
-    getData();
-  }
-
-  getData() async {
-    try {
-      var userSnap = await FirebaseFirestore.instance
-          .collection("users")
-          .doc(widget.uid)
-          .get();
-
-      userData = userSnap.data()!;
-    } catch (err) {
-      showSnackBar(err.toString(), context);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -81,8 +64,8 @@ class _MyPageState extends State<MyPage> {
                       child: ClipOval(
                         child: SizedBox.fromSize(
                           size: const Size.fromRadius(30), // Image radius
-                          child: Image.network(
-                            userData['photoUrl'],
+                          child: Image.asset(
+                            "assets/profile.jpg",
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -92,16 +75,16 @@ class _MyPageState extends State<MyPage> {
                   const SizedBox(
                     height: 5,
                   ),
-                   Text(
-                    userData['username'],
-                    style: TextStyle(
+                  Text(
+                    "username",
+                    style: const TextStyle(
                         fontSize: 25,
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
                         fontFamily: "Montserrat"),
                   ),
-                   Text(userData['email'],
-                      style: TextStyle(
+                  Text("",
+                      style: const TextStyle(
                           fontSize: 20,
                           color: Colors.white,
                           fontWeight: FontWeight.w400,
@@ -190,7 +173,7 @@ class _MyPageState extends State<MyPage> {
               onTap: () async {
                 await AuthMethods().LogOutUser();
                 Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => LoginPage()));
+                    MaterialPageRoute(builder: (context) => const LoginPage()));
               },
               child: Container(
                 padding: const EdgeInsets.only(

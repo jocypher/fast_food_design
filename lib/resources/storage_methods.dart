@@ -18,6 +18,7 @@ class StorageMethods {
     TaskSnapshot snapshot = await uploadTask;
 
     String downloadUrl = await snapshot.ref.getDownloadURL();
+    
     return downloadUrl; 
   }
 }

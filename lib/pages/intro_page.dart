@@ -50,66 +50,68 @@ class _AnimationPageState extends State<AnimationPage> with SingleTickerProvider
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
-        children: [
-          const SizedBox(height: 100,),
-          FadeTransition(
-            opacity: animation,
-          child: const ProfilePage(),
-          ),
-
-          SizedBox(height: height * 0.03,),
-          Text("Fresh Foods",
-            style: GoogleFonts.actor(
-                fontSize: 30,
-                fontWeight: FontWeight.bold
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(height: 100,),
+            FadeTransition(
+              opacity: animation,
+            child: const ProfilePage(),
             ),
-          ),
-          const SizedBox(height: 10,),
-          Text("In particular the garbled words of",
-            style: GoogleFonts.aladin(
-                fontSize: 28,
-                fontWeight: FontWeight.w400,
-                color: Colors.grey
+      
+            SizedBox(height: height * 0.03,),
+            Text("Fresh Foods",
+              style: GoogleFonts.actor(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold
+              ),
             ),
-          ),
-          Text("bear an unmistakable",
-            style: GoogleFonts.aladin(fontSize: 28,
-                fontWeight: FontWeight.w400,
-                color: Colors.grey
-
+            const SizedBox(height: 10,),
+            Text("In particular the garbled words of",
+              style: GoogleFonts.aladin(
+                  fontSize: 28,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.grey
+              ),
             ),
-          ),
-          SizedBox(height: height * 0.15),
-          TextButton(
-              onPressed: (){
-                Navigator.push(context, MaterialPageRoute(
-                    builder: (context){
-                  return const LoginPage();
-                }));
-              }, child: Container(
-              padding: const EdgeInsets.all(30),
-              decoration: BoxDecoration(
-                  color: Colors.deepOrangeAccent,
-                  borderRadius: BorderRadius.circular(7),
-                  boxShadow: const [BoxShadow(
-                      color: Colors.deepOrangeAccent,
-                      spreadRadius: 1,
-                      blurRadius: 17,
-                      offset: Offset(0, 15)
-                  ) ] ),
-              child: Text("Get Started",
-                  style: GoogleFonts.aboreto(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Colors.white,
-                      letterSpacing: 0.5
-                  )
-              )
-          )
-
-          )
-        ],
+            Text("bear an unmistakable",
+              style: GoogleFonts.aladin(fontSize: 28,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.grey
+      
+              ),
+            ),
+            SizedBox(height: height * 0.15),
+            TextButton(
+                onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(
+                      builder: (context){
+                    return const LoginPage();
+                  }));
+                }, child: Container(
+                padding: const EdgeInsets.all(30),
+                decoration: BoxDecoration(
+                    color: Colors.deepOrangeAccent,
+                    borderRadius: BorderRadius.circular(7),
+                    boxShadow: const [BoxShadow(
+                        color: Colors.deepOrangeAccent,
+                        spreadRadius: 1,
+                        blurRadius: 17,
+                        offset: Offset(0, 15)
+                    ) ] ),
+                child: Text("Get Started",
+                    style: GoogleFonts.aboreto(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: Colors.white,
+                        letterSpacing: 0.5
+                    )
+                )
+            )
+      
+            )
+          ],
+        ),
       ),
     );
   }
