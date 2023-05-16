@@ -2,25 +2,31 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fast_food_app_design/nav_pages/contact_page.dart';
 import 'package:fast_food_app_design/nav_pages/main_page1.dart';
 import 'package:fast_food_app_design/pages/login_page.dart';
+import 'package:fast_food_app_design/providers/user_provider.dart';
 
 import 'package:fast_food_app_design/resources/auth_methods.dart';
+import 'package:fast_food_app_design/models/user.dart' as model;
 import 'package:fast_food_app_design/utils/utils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../models/user.dart';
 
 class MyPage extends StatefulWidget {
-  final String uid;
-  const MyPage({Key? key, required this.uid}) : super(key: key);
+  const MyPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<MyPage> createState() => _MyPageState();
 }
 
 class _MyPageState extends State<MyPage> {
+
   @override
   Widget build(BuildContext context) {
+     model.User user = Provider.of<UserProvider>(context).getUser;
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -64,8 +70,8 @@ class _MyPageState extends State<MyPage> {
                       child: ClipOval(
                         child: SizedBox.fromSize(
                           size: const Size.fromRadius(30), // Image radius
-                          child: Image.asset(
-                            "assets/profile.jpg",
+                          child: Image.network(
+                            user.photoUrl,
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -76,14 +82,14 @@ class _MyPageState extends State<MyPage> {
                     height: 5,
                   ),
                   Text(
-                    "username",
+                    user.username,
                     style: const TextStyle(
                         fontSize: 25,
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
                         fontFamily: "Montserrat"),
                   ),
-                  Text("",
+                  Text(user.email,
                       style: const TextStyle(
                           fontSize: 20,
                           color: Colors.white,
