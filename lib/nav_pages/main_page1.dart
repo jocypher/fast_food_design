@@ -2,6 +2,7 @@ import 'package:fast_food_app_design/nav_pages/personal_page_account.dart';
 import 'package:fast_food_app_design/nav_pages/history.dart';
 import 'package:fast_food_app_design/nav_pages/search_page.dart';
 import 'package:fast_food_app_design/pages/homepage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatefulWidget {
@@ -14,10 +15,10 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
 
   List pages = [
-    const HomePage(),
+   HomePage(uid: FirebaseAuth.instance.currentUser!.uid,),
     const SearchPage(),
     const HistoryPage(),
-    const MyPage(),
+     MyPage(uid:FirebaseAuth.instance.currentUser!.uid),
 
   ];
 
